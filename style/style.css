@@ -75,6 +75,15 @@ footer p {
     font-size: 0.8em;
 }
 
+.btn-wsp {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 70px;
+    height: 70px;
+    z-index: 100;
+}
+
 @media (min-width:500px) {
 
     section {
@@ -126,6 +135,11 @@ footer p {
     .parametros3 {
         font-size: 1em;
         padding-bottom: 10%;
+    }
+
+    .btn-wsp {
+        right: 40px;
+        bottom: 40px;
     }
 
     footer p {
