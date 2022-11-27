@@ -74,3 +74,77 @@ footer p {
 .contacto {
     font-size: 0.8em;
 }
+
+@media (min-width:500px) {
+
+    section {
+        margin-top: 85px;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/7224670/pexels-photo-7224670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    }
+
+    section p {
+        max-width: 60%;
+    }
+
+    footer {
+        height: 130px;
+    }
+
+    .empresa {
+        font-size: 1.2em;
+    }
+    
+    .contacto {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    section {
+        margin-top: 85px;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/8796052/pexels-photo-8796052.jpeg?auto=compress&cs=tinysrgb&w=1800&h);
+    }
+
+    h1 {
+        font-size: 4em;
+    }
+
+    section p {
+        font-size: 1.3em;
+        max-width: 50%;
+    }
+
+    .parametros1 {
+        font-size: 1em;
+    }
+
+    .parametros2 {
+        font-size: 1em;
+    }
+
+    .parametros3 {
+        font-size: 1em;
+        padding-bottom: 10%;
+    }
+
+    footer p {
+        text-align: left;
+        font-family: 'Barlow', sans-serif;
+        color: #fff;
+    }
+    
+    .empresa {
+        padding-top: 15px;
+        padding-left: 10%;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .contacto {
+        padding-left: 10%;
+        font-size: 1em;
+    }
+
+}
