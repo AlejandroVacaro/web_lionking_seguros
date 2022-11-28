@@ -15,19 +15,25 @@ if (confirmarCondiciones == true) {
         nombre = prompt("Ingrese su nombre completo:").toUpperCase();
     }
 
-    edadActual = parseInt(prompt("Indique su edad actual:"));
-
-    while (isNaN(edadActual)) {
-        alert("Debe ingresar su edad actual. Inténtelo nuevamente.");
+    function ingresarEdadActual() {
         edadActual = parseInt(prompt("Indique su edad actual:"));
+        while (isNaN(edadActual)) {
+            alert("Debe ingresar su edad actual. Inténtelo nuevamente.");
+            edadActual = parseInt(prompt("Indique su edad actual:"));
+        }
     }
 
-    edadComienzoRenta = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta:"));
+    ingresarEdadActual();
 
+    function ingresarEdadComienzoRenta() {
+        edadComienzoRenta = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta:"));
     while (isNaN(edadComienzoRenta)) {
         alert("Debe ingresar la edad a la que le gustaría comenzar a recibir su renta. Inténtelo nuevamente.");
         edadComienzoRenta = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta:"));
     }
+    }
+
+    ingresarEdadComienzoRenta()
 
     while (edadActual > edadComienzoRenta) {
         alert("Lo sentimos, su edad actual es mayor a la edad en que desea comenzar a cobrar su renta. Inténtelo de nuevo.");
