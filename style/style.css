@@ -96,12 +96,13 @@ h1 {
 .formularioContacto form {
     display: flex;
     flex-direction: column;
-    border-radius: 5%;
 }
 
 #contacto .formularioContacto {
-    width: 95%;
+    padding: 5%;
+    width: 100%;
     height: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
 #contacto .formularioContacto form #Enviar {
