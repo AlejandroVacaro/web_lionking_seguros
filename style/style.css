@@ -190,7 +190,6 @@ footer p {
 @media (min-width:500px) {
 
     #inicio {
-        margin-top: 85px;
         background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/7224670/pexels-photo-7224670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
     }
 
