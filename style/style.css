@@ -4,38 +4,137 @@
 }
 
 header img {
-    width: 120px;
+    width: 100px;
     height: auto;
     padding-left: 10%;
 }
 
 header {
     background-color: #fff;
-    position: fixed;
+    position: sticky;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 100;
 }
 
-section {
-    margin-top: 85px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/3846132/pexels-photo-3846132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+header .navbar-margin li a {
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Barlow', sans-serif;
 }
 
 h1 {
     font-family: 'Barlow', sans-serif;
     color:#fff;
     font-size: 3.4em;
-    padding: 10% 40% 0 10%;
+    padding: 20% 40% 0 10%;
 }
 
-section p {
+#inicio p {
     font-family: 'Barlow', sans-serif;
     color: #fff;
     padding: 5% 10% 0 10%;
     font-size: 1em;
 }
+
+#inicio {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/3846132/pexels-photo-3846132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    padding-bottom: 15%;
+}
+
+#cotizador {
+    padding: 15% 5% 20% 5%;
+    background-color: rgb(236, 240, 241); 
+}
+
+#cotizador option {
+    font-size: 1rem;
+    font-family: 'Barlow', sans-serif;
+}
+
+#cotizador h2 {
+    font-size: 2.3rem;
+    font-family: 'Barlow', sans-serif;
+    color: #768692;
+    padding-bottom: 5%;
+}
+
+#empresa h2 {
+    font-size: 2.3rem;
+    font-family: 'Barlow', sans-serif;
+    color: #768692;
+    padding-bottom: 5%;
+}
+
+#empresa {
+    padding: 15% 5% 20% 5%;
+    background-color: #fff;
+}
+
+.infoEmpresa {
+    background-color: #fff;
+    padding: 1.5em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#contacto {
+    padding-top: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color:rgb(236, 240, 241); 
+}
+
+#contacto h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-family: 'Barlow', sans-serif;
+    color: #768692;
+    padding-bottom: 5%;
+}
+
+.formularioContacto form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5%;
+}
+
+#contacto .formularioContacto {
+    width: 95%;
+    height: auto;
+}
+
+#contacto .formularioContacto form #Enviar {
+    width: 7rem;
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1em;
+    margin-top: 1rem;
+}
+
+.pContacto {
+    margin-top: 15%;
+}
+
+.mapa {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    height: auto;
+}
+
+.mapa iframe {
+    width: 100%;
+    height: auto;
+}
+
+.wpp {
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    padding-top: 5%;
+    padding-bottom: 20%;
+}
+
 
 .parametros1 {
     font-size: 0.8em;
@@ -55,13 +154,15 @@ section p {
 footer {
     background-color: #23ADC5;
     width: 100%;
-    height: 100px;
+    bottom: 0;
+    padding-bottom: 5px;
 }
 
 footer p {
     text-align: center;
     font-family: 'Barlow', sans-serif;
     color: #fff;
+    margin: 0;
 }
 
 .empresa {
@@ -86,12 +187,12 @@ footer p {
 
 @media (min-width:500px) {
 
-    section {
+    #inicio {
         margin-top: 85px;
         background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/7224670/pexels-photo-7224670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
     }
 
-    section p {
+    #inicio p {
         max-width: 60%;
     }
 
@@ -110,7 +211,7 @@ footer p {
 
 @media (min-width: 1024px) {
 
-    section {
+    #inicio {
         margin-top: 85px;
         background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/8796052/pexels-photo-8796052.jpeg?auto=compress&cs=tinysrgb&w=1800&h);
     }
@@ -119,7 +220,7 @@ footer p {
         font-size: 4em;
     }
 
-    section p {
+    #inicio p {
         font-size: 1.3em;
         max-width: 50%;
     }
