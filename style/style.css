@@ -44,6 +44,10 @@ h1 {
     padding-bottom: 15%;
 }
 
+span {
+    color: #768692;
+}
+
 #cotizador {
     padding: 15% 5% 20% 5%;
     background-color: rgb(236, 240, 241);
@@ -58,7 +62,12 @@ h1 {
     font-size: 2.3rem;
     font-family: 'Barlow', sans-serif;
     color: #768692;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
+}
+
+#cotizador p {
+    font-size: 1em;
+    color: #768692;
 }
 
 label {
@@ -71,6 +80,10 @@ label {
 
 #cotizador .form-select {
     color: rgb(83, 86, 90);
+}
+
+.errorValidacion {
+    border: 1px solid #b81414;
 }
 
 #empresa h2 {
