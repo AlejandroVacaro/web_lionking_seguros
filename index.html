@@ -63,33 +63,31 @@
         <form class="row g-3" id="formulario">
             <div class="col-xl-6 col-md-6">
                 <label for="validationDefault01" class="form-label"><span>*</span>Nombre:</label>
-                <input type="text" class="form-control" id="validationDefault01 inputNombre" value="">
+                <input type="text" class="form-control" id="inputNombre" value="">
             </div>
             <div class="col-xl-6 col-md-6">
                 <label for="validationDefault02" class="form-label"><span>*</span>Apellidos:</label>
-                <input type="text" class="form-control" id="validationDefault02 inputApellidos" value="">
+                <input type="text" class="form-control" id="inputApellidos" value="">
             </div>
             <div class="col-xl-3 col-md-4">
                 <label for="validationDefault03" class="form-label">Documento de identidad:</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="validationDefault03"
-                        aria-describedby="inputGroupPrepend2">
+                    <input type="number" class="form-control" id="inputDocumento" aria-describedby="inputGroupPrepend2">
                 </div>
             </div>
             <div class="col-xl-3 col-md-4">
                 <label for="validationDefault04" class="form-label"><span>*</span>Fecha de nacimiento:</label>
                 <div class="input-group">
-                    <input type="date" class="form-control" id="validationDefault04 inputNacimiento"
-                        aria-describedby="inputGroupPrepend2">
+                    <input type="date" class="form-control" id="inputNacimiento" aria-describedby="inputGroupPrepend2">
                 </div>
             </div>
             <div class="col-xl-6 col-md-8">
                 <label for="validationDefault05" class="form-label">Domicilio:</label>
-                <input type="text" class="form-control" id="validationDefault05">
+                <input type="text" class="form-control" id="inputDomicilio">
             </div>
             <div class="col-xl-4 col-md-5">
                 <label for="validationDefault06" class="form-label">Departamento:</label>
-                <select class="form-select" id="validationDefault06">
+                <select class="form-select" id="selectDepartamento">
                     <option value="">Montevideo</option>
                     <option value="">Artigas</option>
                     <option value="">Canelones</option>
@@ -113,44 +111,53 @@
             </div>
             <div class="col-xl-8 col-md-7">
                 <label for="validationDefault07" class="form-label">Correo electrónico:</label>
-                <input type="email" class="form-control" id="validationDefault07">
+                <input type="email" class="form-control" id="inputEmail">
             </div>
             <div class="col-xl-3 col-md-5">
                 <label for="validationDefault08" class="form-label"><span>*</span>Importe a depositar en pesos
                     uruguayos:</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="validationDefault08 inputImporte"
-                        aria-describedby="inputGroupPrepend2" placeholder="0">
+                    <input type="number" class="form-control" id="inputImporte" aria-describedby="inputGroupPrepend2"
+                        placeholder="0">
                 </div>
             </div>
             <div class="col-xl-2 col-md-3">
                 <label for="validationDefault09" class="form-label"><span>*</span>Edad a comenzar a cobrar la
                     renta:</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="validationDefault09 inputEdadCobro"
-                        aria-describedby="inputGroupPrepend2">
+                    <input type="number" class="form-control" id="inputEdadCobro" aria-describedby="inputGroupPrepend2">
                 </div>
             </div>
             <div class="col-xl-2 col-md-5">
-                <label for="validationDefault10" class="form-label"><span>*</span>Periodicidad de cobro:</label>
-                <select class="form-select" id="validationDefault10">
+                <label for="validationDefault10" class="form-label">Periodicidad de cobro:</label>
+                <select class="form-select" id="inputPeriodicidad">
                     <option value="">Anual</option>
                     <option value="">Mensual</option>
                 </select>
             </div>
             <div class="col-12">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2 imputCheck">
+                    <input class="form-check-input" type="checkbox" value="" id="inputCheck">
                     <label class="form-check-label" for="invalidCheck2">
                         He leído y acepto todos los términos y condiciones.
                     </label>
                 </div>
             </div>
-            <div id="mensajesError"></div>
+            <div id="mensajeCheck"></div>
+            <div id="mensajeEdad1"></div>
+            <div id="mensajeEdad2"></div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit" onclick="procesarFormulario()" id="btn-submit">Calcular renta</button>
+                <button class="btn btn-primary" type="submit" id="btn-submit">Calcular renta</button>
             </div>
         </form>
+        <div class="resultadoContenedor" id="resultado">
+            <div class="divResultado">
+                <h3 class="resultado">Resultado:</h3>
+                <div id="resultado1"></div>
+                <p class="resultado2">*Los datos obtenidos son meramente informativos, no siendo vinculantes para la
+                    empresa ni para el usuario, ni generando obligaciones para ninguna de las partes.</p>
+            </div>
+        </div>
     </section>
     <section id="empresa">
         <div class="infoEmpresa">

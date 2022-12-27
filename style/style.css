@@ -82,8 +82,35 @@ label {
     color: rgb(83, 86, 90);
 }
 
-.errorValidacion {
-    border: 1px solid #b81414;
+.resultadoContenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#resultado{
+    display: none;
+}
+
+.divResultado {
+    margin-top: 5%;
+    padding: 5%;
+    width: 100%;
+    height: auto;
+    box-shadow: rgb(50 50 93 / 25%) 0px 30px 60px -12px, rgb(0 0 0 / 30%) 0px 18px 36px -18px;
+    max-width: 900px;
+}
+
+.resultado {
+    color: #23ADC5;
+}
+
+#resultado1 {
+    color: rgb(83, 86, 90);
+    font-size: 1.5em;
+    font-family: 'Barlow', sans-serif;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 #empresa h2 {

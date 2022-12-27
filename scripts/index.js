@@ -6,245 +6,264 @@ let nombre;
 let apellidos;
 let documento;
 let fechaNacimiento;
+let departamento;
 let domicilio;
 let correo;
 let capitalInicial;
 let edadRetiro;
 let periodicidad;
+let edadActual;
+let capitalFinal;
+let inputNombre = document.getElementById("inputNombre");
+let inputApellidos = document.getElementById("inputApellidos");
+let inputDocumento = document.getElementById("inputDocumento");
+let inputDomicilio = document.getElementById("inputDomicilio");
+let inputDepartamento = document.getElementById("selectDepartamento");
+let inputEmail = document.getElementById("inputEmail");
+let inputPeriodicidad = document.getElementById("inputPeriodicidad");
+let inputNacimiento = document.getElementById("inputNacimiento");
+let inputImporte = document.getElementById("inputImporte");
+let inputEdadCobro = document.getElementById("inputEdadCobro");
+let inputCheck = document.getElementById("inputCheck");
+let mensajeCheck = document.getElementById("mensajeCheck");
+let mensajeEdad1 = document.getElementById("mensajeEdad1");
+let mensajeEdad2 = document.getElementById("mensajeEdad2");
+let mensajeResultado = document.getElementById("resultado1");
+
+// CARGA DE DATOS GUARDADOS:
+let usuarioRecuperado = window.localStorage.getItem('objetoUsuario');
+console.log(usuarioRecuperado);
+const objetoUsuarioRecuperado = JSON.parse(usuarioRecuperado)
+
+function preCargarNombre() {
+    if (objetoUsuarioRecuperado.nombre !== null) {
+        inputNombre.value = objetoUsuarioRecuperado.nombre;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarApellido() {
+    if (objetoUsuarioRecuperado.apellidos !== null) {
+        inputApellidos.value = objetoUsuarioRecuperado.apellidos;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarNacimiento() {
+    if (objetoUsuarioRecuperado.fechaNacimiento !== null) {
+        inputNacimiento.value = objetoUsuarioRecuperado.fechaNacimiento;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarDocumento() {
+    if (objetoUsuarioRecuperado.documento !== null) {
+        inputDocumento.value = objetoUsuarioRecuperado.documento;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarDomicilio() {
+    if (objetoUsuarioRecuperado.domicilio !== null) {
+        inputDomicilio.value = objetoUsuarioRecuperado.domicilio;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarDomicilio() {
+    if (objetoUsuarioRecuperado.domicilio !== null) {
+        inputDomicilio.value = objetoUsuarioRecuperado.domicilio;
+    } else {
+        // no hacer nada
+    }
+}
+function preCargarEmail() {
+    if (objetoUsuarioRecuperado.correo !== null) {
+        inputEmail.value = objetoUsuarioRecuperado.correo;
+    } else {
+        // no hacer nada
+    }
+}
+
+preCargarNombre();
+preCargarApellido();
+preCargarNacimiento();
+preCargarDocumento();
+preCargarDomicilio();
+preCargarEmail();
+
+// MANEJO ERROR
+function agregarError(e) {
+    e.style.borderColor = "red";
+}
+function quitarError(e) {
+    e.style.borderColor = "lightgrey";
+}
+function borrarMensaje(e) {
+    mensajesError.parentNode.removeChild(e);
+}
 
 //VALIDACIÓN DEL FORMULARIO
 
-// let edadActual = Math.floor((new Date() - document.getElementById("inputNacimiento").val()) / 31536000000)
-
-
-
 function validarFormulario() {
+    let fechaNacimientoJs = Date.parse(document.getElementById("inputNacimiento").value);
+    let edadActual = Math.floor((new Date() - fechaNacimientoJs) / 31536000000);
+    documento = inputDocumento.value;
+    domicilio = inputDomicilio.value;
+    departamento = inputDepartamento.options[inputDepartamento.selectedIndex].text;
+    correo = inputEmail.value;
+    periodicidad = inputPeriodicidad.options[inputPeriodicidad.selectedIndex].text;
+
 
     //Validar campo "nombre"
 
-    if (document.getElementById("inputNombre").value == "") {
-        document.getElementById("inputNombre").className = document.getElementById("inputNombre").className + "errorValidacion";
-        return false;
+    if (inputNombre.value == "") {
+        agregarError(inputNombre);
+    } else {
+        quitarError(inputNombre);
+        nombre = inputNombre.value
     }
 
     //Validar campo "apellidos"
 
-    if (document.getElementById("formulario").inputApellidos.value == "") {
-        document.getElementById("formulario").inputApellidos.className = document.getElementById("formulario").inputApellidos.className + "errorValidacion"
+    if (inputApellidos.value == "") {
+        agregarError(inputApellidos);
+    } else {
+        quitarError(inputApellidos);
+        apellidos = inputApellidos.value
     }
 
     //Validar campo fecha de nacimiento
 
-    if (!document.getElementById("formulario").inputNacimiento.value) {
-        document.getElementById("formulario").inputNacimiento.className = document.getElementById("formulario").inputNacimiento.className + "errorValidacion"
+    if (!inputNacimiento.value) {
+        agregarError(inputNacimiento);
+    } else {
+        quitarError(inputNacimiento);
+        fechaNacimiento = inputNacimiento.value
     }
 
     //Validar campo importe a depositar
 
-    if (isNan(inputImporte) || inputImporte <= 0) {
-        document.getElementById("formulario").inputImporte.className = document.getElementById("formulario").inputImporte.className + "errorValidacion"
+    if (isNaN(inputImporte.value) || inputImporte.value <= 0) {
+        agregarError(inputImporte);
+    } else {
+        quitarError(inputImporte);
+        capitalInicial = inputImporte.value
     }
 
     //Validar edad de comienzo de cobro
-
-    if (isNaN(inputEdadCobro)) {
-        document.getElementById("formulario").inputEdadCobro.className = document.getElementById("formulario").inputEdadCobro.className + "errorValidacion"
+    if (inputEdadCobro.value === '') {
+        agregarError(inputEdadCobro);
+    } else {
+        quitarError(inputEdadCobro);
+        edadRetiro = inputEdadCobro.value
     }
 
-    if(inputEdadCobro <= edadActual) {
-        document.getElementById("formulario").inputNacimiento.className = document.getElementById("formulario").inputNacimiento.className + "errorValidacion"
-        let errorNacimiento1 = document.createElement("p");
-        errorNacimiento1.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente superior a su edad actual.";
-        document.getElementById("mensajesError").appendChild(errorNacimiento1);
+    if (inputEdadCobro.value <= edadActual) {
+        mensajeEdad1.innerHTML = '';
+        let errorEdad1 = document.createElement("p");
+        errorEdad1.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente superior a su edad actual.";
+        mensajeEdad1.appendChild(errorEdad1);
+        agregarError(inputEdadCobro);
+    } else {
+        quitarError(inputEdadCobro);
+        mensajeEdad1.innerHTML = '';
+        edadRetiro = inputEdadCobro.value
     }
 
-    if(inputEdadCobro <= 85) {
-        document.getElementById("formulario").inputNacimiento.className = document.getElementById("formulario").inputNacimiento.className + "errorValidacion"
-        let errorNacimiento2 = document.createElement("p");
-        errorNacimiento2.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente menor a 85 años.";
-        document.getElementById("mensajesError").appendChild(errorNacimiento2);
+    if (inputEdadCobro.value >= 85) {
+        mensajeEdad2.innerHTML = '';
+        let errorEdad2 = document.createElement("p");
+        errorEdad2.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente menor a 85 años.";
+        mensajeEdad2.appendChild(errorEdad2);
+        agregarError(inputEdadCobro);
+    } else {
+        quitarError(inputEdadCobro);
+        mensajeEdad2.innerHTML = '';
+        edadRetiro = inputEdadCobro.value
     }
 
-    if(!document.getElementById(inputCheck).checked) {
-        document.getElementById("formulario").inputCheck.className = document.getElementById("formulario").inputCheck.className + "errorValidacion"
+    if (!inputCheck.checked) {
+        mensajeCheck.innerHTML = '';
         let errorCheckBox = document.createElement("p");
         errorCheckBox.innerHTML = "Para continuar debe aceptar los términos y condiciones.";
-        document.getElementById("mensajesError").appendChild(errorCheckBox);
+        mensajeCheck.appendChild(errorCheckBox);
+    } else {
+        mensajeCheck.innerHTML = '';
     }
 }
 
-function procesarFormulario() {
-    validarFormulario()
+// CALCULOS DE RENTA
+const RentabilidadesAnuales = []
+
+function cicloCapitalizacion() {
+    capitalFinal = capitalInicial
+    const periodoCapitalizacion = parseInt(edadRetiro - edadActual);
+    let contador = 1
+    while (contador <= periodoCapitalizacion) {
+        RentabilidadesAnuales.push(capitalFinal * 0.09);
+        capitalFinal = capitalFinal + (capitalFinal * 0.09);
+        contador++;
+    }
 }
 
-document.addEventListener("submit", procesarFormulario());
+let rentaAnual;
+
+function calculoRentaAnual() {
+    capitalFinal = capitalInicial
+    const rentaAnualSinComision = (capitalFinal / (85 - edadRetiro));
+    rentaAnual = (rentaAnualSinComision - (rentaAnualSinComision * 0.02)).toFixed(2);
+}
+
+let rentaMensual;
+
+function calculoRentaMensual() {
+    rentaMensual = (rentaAnual / 12).toFixed(2);
+}
+
+// ALMACENAMIENTO EN STORAGE
+function Usuario(nombre, apellidos, documento, domicilio, departamento, correo, fechaNacimiento) {
+    this.nombre = nombre;
+    this.apellidos = apellidos;
+    this.documento = documento;
+    this.domicilio = domicilio;
+    this.departamento = departamento;
+    this.correo = correo;
+    this.fechaNacimiento = fechaNacimiento;
+}
+
+function guardarUsuario() {
+    const usuario1 = new Usuario(nombre, apellidos, documento, domicilio, departamento, correo, fechaNacimiento);
+    localStorage.setItem('objetoUsuario', JSON.stringify(usuario1));
+}
+
+let rentaCalculada;
+
+function rentaResultante() {
+    if (periodicidad == "Anual") {
+        calculoRentaAnual();
+        rentaCalculada = rentaAnual;
+    } else {
+        calculoRentaAnual();
+        calculoRentaMensual();
+        rentaCalculada = rentaMensual;
+    }
+};
+function mostrarResultado() {
+    if (rentaCalculada !== null) {
+        mensajeResultado.innerHTML = "Estimado/a " + nombre + " " + apellidos + " la renta " + periodicidad.toLowerCase() + " resultante es de $" + rentaCalculada;
+        document.getElementById("resultado").style.display = "flex";
+    }
+}
+
+formulario.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    validarFormulario();
+    cicloCapitalizacion();
+    rentaResultante();
+    guardarUsuario();
+    mostrarResultado();
+});
 
 
-
-
-
-// Solicitud de datos de la persona
-
-// function ingresarNombre() {
-//     nombre = document.getElementById("inputNombre").toUpperCase();
-// }
-
-// ingresarNombre();
-
-// console.log(nombre);
-
-// function ingresarDocumento() {
-//     documento = parseInt(prompt("Ingrese su documento de identidad sin puntos ni guiones:"));
-//     while (isNaN(documento)) {
-//         alert("Por favor, ingrese su documento de identidad. Inténtelo nuevamente.");
-//         documento = parseInt(prompt("Ingrese su documento de identidad sin puntos ni guiones:"));
-//     }
-// }
-
-// ingresarDocumento();
-
-// function ingresarFechaNacimiento() {
-//     fechaNacimiento = prompt("Ingrese su fecha de nacimiento con el formato dd/mm/aaaa:");
-//     while (fechaNacimiento == "") {
-//         alert("Por favor, ingrese su fecha de nacimiento. Inténtelo nuevamente.");
-//         fechaNacimiento = prompt("Ingrese su fecha de nacimiento con el formato dd/mm/aaaa:");
-//     }
-// }
-
-// ingresarFechaNacimiento();
-
-// var fechaPartes = fechaNacimiento.split("/");
-// var objetoFecha = new Date(+fechaPartes[2], fechaPartes[1] - 1, +fechaPartes[0]);
-
-
-// function ingresarCorreo() {
-//     correo = prompt("Ingrese su correo electrónico");
-//     while (correo == "") {
-//         alert("Por favor, ingrese su correo electrónico. Inténtelo nuevamente.");
-//         correo = prompt("Ingrese su correo electrónico:");
-//     }
-// }
-
-// ingresarCorreo();
-
-// function ingresarCapital() {
-//     capitalInicial = parseFloat(prompt("Indique el capital total a depositar (no utilice separadores de miles e indique los centavos con un punto):"));
-//     while (isNaN(capitalInicial)) {
-//         alert("Debe ingresar el capital a depositar. Inténtelo nuevamente.");
-//         capitalInicial = parseFloat(prompt("Indique el capital total a depositar (no utilice separadores de miles e indique los centavos con un punto):"));
-//     }
-// }
-
-// ingresarCapital();
-
-
-// function Usuario(nombre, documento, fechaNacimiento, correo, capitalInicial) {
-//     this.nombre = nombre;
-//     this.documento = documento;
-//     this.fechaNacimiento = fechaNacimiento;
-//     this.correo = correo;
-//     this.capitalInicial = capitalInicial;
-// }
-
-// const Usuario1 = new Usuario (nombre, documento, fechaNacimiento, correo, capitalInicial);
-
-// console.log("Se ha creado correctamente el registro del usuario: " + Usuario1.nombre);
-// console.log("Se ha enviado un correo de confirmación a la casilla " + Usuario1.correo);
-
-
-
-// // CÁLCULO DE RENTA
-
-// let edadActual
-
-// function ingresarEdadRetiro() {
-//     edadRetiro = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta (debe ser superior a su edad actual e inferior a 85 años):"));
-//     while (isNaN(edadRetiro)) {
-//         alert("Debe ingresar la edad a la que le gustaría comenzar a recibir su renta. Inténtelo nuevamente.");
-//         edadRetiro = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta:"));
-//     }
-//     edadActual = Math.floor((new Date() - objetoFecha) / 31536000000)
-//     while (edadActual >= edadRetiro) {
-//         alert("Debe ingresar una edad de retiro estrictamente superior a su edad actual. Inténtelo nuevamente.");
-//         edadRetiro = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta (debe ser superior a su edad actual e inferior a 85 años):"));
-//     }
-//     while (edadRetiro >= 85) {
-//         alert("Debe ingresar una edad de retiro estrictamente menor a 85 años. Inténtelo nuevamente.");
-//         edadRetiro = parseInt(prompt("Indique desde qué edad le gustaría comenzar a recibir su renta (debe ser superior a su edad actual e inferior a 85 años):"));
-//     }
-// }
-
-// ingresarEdadRetiro();
-
-
-// function ingresarPeriodicidad() {
-//     periodicidadCobro = parseInt(prompt("¿Desea cobrar su renta de forma mensual o anual? Indique con 1 si desea cobrarlo una vez por año o con un 2 si desea cobrarlo de forma mensual."));
-
-//     while (isNaN(periodicidadCobro)) {
-//         alert("Debe ingresar con que periodicidad desea cobrar su renta. Inténtelo nuevamente.")
-//         periodicidadCobro = parseInt(prompt("¿Desea cobrar su renta de forma mensual o anual? Indique con 1 si desea cobrarlo una vez por año o con un 2 si desea cobrarlo de forma mensual."));
-//     }
-
-//     while ((periodicidadCobro !== parseInt(1)) && (periodicidadCobro !== parseInt(2))) {
-//         alert("Por favor ingrese únicamente 1 o 2. Inténtelo nuevamente.");
-//         periodicidadCobro = parseInt(prompt("¿Desea cobrar su renta de forma mensual o anual? Indique con 1 si desea cobrarlo una vez por año o con un 2 si desea cobrarlo de forma mensual."));
-//     }
-// }
-
-// ingresarPeriodicidad();
-
-// let capitalFinal = capitalInicial
-
-// const RentabilidadesAnuales = []
-
-// function cicloCapitalizacion() {
-//     const periodoCapitalizacion = parseInt(edadRetiro - edadActual);
-//     let contador = 1
-//     while (contador <= periodoCapitalizacion) {
-//         RentabilidadesAnuales.push(capitalFinal * 0.09);
-//         capitalFinal = capitalFinal + (capitalFinal * 0.09);
-//         contador++;
-//     }
-// }
-
-// cicloCapitalizacion();
-
-// let rentaAnual;
-
-// function calculoRentaAnual() {
-//     const rentaAnualSinComision = (capitalFinal / (85 - edadRetiro));
-//     rentaAnual = (rentaAnualSinComision - (rentaAnualSinComision * 0.02)).toFixed(2);
-// }
-
-// let rentaMensual;
-
-// function calculoRentaMensual() {
-//     rentaMensual = (rentaAnual / 12).toFixed(2);
-// }
-
-// switch (periodicidadCobro) {
-
-//     case 1:
-//         calculoRentaAnual();
-//         alert("Los datos obtenidos son meramente informativos, no siendo vinculantes para la empresa ni para el usuario, ni generando obligaciones para ninguna de las partes.");
-//         alert("Estimado/a " + nombre + ": su renta anual nominal sería de $" + rentaAnual);
-//         break;
-
-//     case 2:
-//         calculoRentaAnual();
-//         calculoRentaMensual();
-//         alert("Los datos obtenidos son meramente informativos, no siendo vinculantes para la empresa ni para el usuario, ni generando obligaciones para ninguna de las partes.");
-//         alert("Estimado/a " + nombre + ": su renta mensual nominal sería de $" + rentaMensual);
-//         break;
-
-//     default:
-//         alert("Lo sentimos, nuestro cotizador falló porque no ingresó correctamente 1 o 2 para definir la periodicidad del cobro, inténtelo nuevamente.");
-// }
-
-// //DETALLE DE RENTABILIDADES GENERADAS
-
-
-// RentabilidadesAnuales.forEach((rentabilidad) => {
-//     console.log("La rentabilidad obtenida para el año " + ((RentabilidadesAnuales.indexOf(rentabilidad))+1) + " es de $" + rentabilidad.toFixed(2))
-// })
 
