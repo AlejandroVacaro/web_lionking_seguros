@@ -32,65 +32,44 @@ let mensajeResultado = document.getElementById("resultado1");
 
 // CARGA DE DATOS GUARDADOS:
 let usuarioRecuperado = window.localStorage.getItem('objetoUsuario');
-console.log(usuarioRecuperado);
 const objetoUsuarioRecuperado = JSON.parse(usuarioRecuperado)
 
-function preCargarNombre() {
-    if (objetoUsuarioRecuperado.nombre !== null) {
-        inputNombre.value = objetoUsuarioRecuperado.nombre;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarApellido() {
-    if (objetoUsuarioRecuperado.apellidos !== null) {
-        inputApellidos.value = objetoUsuarioRecuperado.apellidos;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarNacimiento() {
-    if (objetoUsuarioRecuperado.fechaNacimiento !== null) {
-        inputNacimiento.value = objetoUsuarioRecuperado.fechaNacimiento;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarDocumento() {
-    if (objetoUsuarioRecuperado.documento !== null) {
-        inputDocumento.value = objetoUsuarioRecuperado.documento;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarDomicilio() {
-    if (objetoUsuarioRecuperado.domicilio !== null) {
-        inputDomicilio.value = objetoUsuarioRecuperado.domicilio;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarDomicilio() {
-    if (objetoUsuarioRecuperado.domicilio !== null) {
-        inputDomicilio.value = objetoUsuarioRecuperado.domicilio;
-    } else {
-        // no hacer nada
-    }
-}
-function preCargarEmail() {
-    if (objetoUsuarioRecuperado.correo !== null) {
-        inputEmail.value = objetoUsuarioRecuperado.correo;
-    } else {
-        // no hacer nada
+
+function preCargarDatos() {
+    if (objetoUsuarioRecuperado) {
+        for (const propiedad in objetoUsuarioRecuperado) {
+            if (objetoUsuarioRecuperado[propiedad] !== null)
+            switch (propiedad) {
+                case 'nombre':
+                    inputNombre.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'apellidos':
+                    inputApellidos.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'documento':
+                    inputDocumento.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'fechaNacimiento':
+                    inputNacimiento.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'domicilio':
+                    inputDomicilio.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'departamento':
+                    inputDepartamento.options[inputDepartamento.selectedIndex].text = objetoUsuarioRecuperado[propiedad];
+                    break;
+                case 'correo':
+                    inputEmail.value = objetoUsuarioRecuperado[propiedad];
+                    break;
+                default:
+                    // no hacer nada
+                    break;
+            }
+        }
     }
 }
 
-preCargarNombre();
-preCargarApellido();
-preCargarNacimiento();
-preCargarDocumento();
-preCargarDomicilio();
-preCargarEmail();
+preCargarDatos()
 
 // MANEJO ERROR
 function agregarError(e) {
@@ -222,18 +201,18 @@ function calculoRentaMensual() {
 }
 
 // ALMACENAMIENTO EN STORAGE
-function Usuario(nombre, apellidos, documento, domicilio, departamento, correo, fechaNacimiento) {
+function Usuario(nombre, apellidos, documento, fechaNacimiento, domicilio, departamento, correo) {
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.documento = documento;
+    this.fechaNacimiento = fechaNacimiento;
     this.domicilio = domicilio;
     this.departamento = departamento;
     this.correo = correo;
-    this.fechaNacimiento = fechaNacimiento;
 }
 
 function guardarUsuario() {
-    const usuario1 = new Usuario(nombre, apellidos, documento, domicilio, departamento, correo, fechaNacimiento);
+    const usuario1 = new Usuario(nombre, apellidos, documento, fechaNacimiento, domicilio, departamento, correo);
     localStorage.setItem('objetoUsuario', JSON.stringify(usuario1));
 }
 
@@ -250,7 +229,8 @@ function rentaResultante() {
     }
 };
 function mostrarResultado() {
-    if (rentaCalculada !== null) {
+    document.getElementById("resultado").style.display = "none";
+    if (rentaCalculada >=0 && validarFormulario) {
         mensajeResultado.innerHTML = "Estimado/a " + nombre + " " + apellidos + " la renta " + periodicidad.toLowerCase() + " resultante es de $" + rentaCalculada;
         document.getElementById("resultado").style.display = "flex";
     }
