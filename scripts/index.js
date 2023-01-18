@@ -54,7 +54,7 @@ for(var i = 0; i < departamentos.length; i++) {
 function mostrarInfo() {
     Swal.fire({
         title: "Aviso importante",
-        text: "Estimados clientes, debido a modificaciones recientemente establecidas la ley de inclusión financiera, les recordamos que todos los pagos se hacen exclusicamente a cuentas bancaras, sin excepciones.",
+        text: "Estimados clientes, debido a modificaciones recientemente establecidas la ley de inclusión financiera, les recordamos que todos los pagos se hacen exclusicamente a cuentas bancarias, sin excepciones.",
         icon: "info",
         confirmButtonText: "Entendido",
         confirmButtonColor: "#0d6efd"
