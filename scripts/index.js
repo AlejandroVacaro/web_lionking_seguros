@@ -29,6 +29,25 @@ let mensajeCheck = document.getElementById("mensajeCheck");
 let mensajeEdad1 = document.getElementById("mensajeEdad1");
 let mensajeEdad2 = document.getElementById("mensajeEdad2");
 let mensajeResultado = document.getElementById("resultado1");
+let botonEnviarMensaje = document.getElementById("Enviar");
+let inputNombreMensaje = document.getElementById("nombre");
+let inputEmailMensaje = document.getElementById("email");
+let inputMensaje = document.getElementById("mensaje");
+
+
+// NOTIFICACIÓN ASINCRÓNICA
+function mostrarInfo() {
+    Swal.fire({
+        title: 'Aviso importante',
+        text: 'Estimados clientes, debido a modificaciones recientemente establecidas la ley de inclusión financiera, les recordamos que todos los pagos se hacen exclusicamente a cuentas bancaras, sin excepciones.',
+        icon: 'info',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#0d6efd'
+    })
+}
+
+setTimeout(mostrarInfo, 5000);
+
 
 // CARGA DE DATOS GUARDADOS:
 let usuarioRecuperado = window.localStorage.getItem('objetoUsuario');
@@ -39,32 +58,32 @@ function preCargarDatos() {
     if (objetoUsuarioRecuperado) {
         for (const propiedad in objetoUsuarioRecuperado) {
             if (objetoUsuarioRecuperado[propiedad] !== null)
-            switch (propiedad) {
-                case 'nombre':
-                    inputNombre.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'apellidos':
-                    inputApellidos.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'documento':
-                    inputDocumento.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'fechaNacimiento':
-                    inputNacimiento.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'domicilio':
-                    inputDomicilio.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'departamento':
-                    inputDepartamento.options[inputDepartamento.selectedIndex].text = objetoUsuarioRecuperado[propiedad];
-                    break;
-                case 'correo':
-                    inputEmail.value = objetoUsuarioRecuperado[propiedad];
-                    break;
-                default:
-                    // no hacer nada
-                    break;
-            }
+                switch (propiedad) {
+                    case 'nombre':
+                        inputNombre.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'apellidos':
+                        inputApellidos.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'documento':
+                        inputDocumento.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'fechaNacimiento':
+                        inputNacimiento.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'domicilio':
+                        inputDomicilio.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'departamento':
+                        inputDepartamento.options[inputDepartamento.selectedIndex].text = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    case 'correo':
+                        inputEmail.value = objetoUsuarioRecuperado[propiedad];
+                        break;
+                    default:
+                        // no hacer nada
+                        break;
+                }
         }
     }
 }
@@ -86,7 +105,7 @@ function borrarMensaje(e) {
 
 function validarFormulario() {
     let fechaNacimientoJs = Date.parse(document.getElementById("inputNacimiento").value);
-    let edadActual = Math.floor((new Date() - fechaNacimientoJs) / 31536000000);
+    edadActual = Math.floor((new Date() - fechaNacimientoJs) / 31536000000);
     documento = inputDocumento.value;
     domicilio = inputDomicilio.value;
     departamento = inputDepartamento.options[inputDepartamento.selectedIndex].text;
@@ -131,19 +150,22 @@ function validarFormulario() {
     }
 
     //Validar edad de comienzo de cobro
-    if (inputEdadCobro.value === '') {
+    if (inputEdadCobro.value === "") {
+        console.log('Entra en validacion')
         agregarError(inputEdadCobro);
+        return false
     } else {
         quitarError(inputEdadCobro);
         edadRetiro = inputEdadCobro.value
     }
-
+    console.log(typeof (inputEdadCobro.value))
     if (inputEdadCobro.value <= edadActual) {
+        agregarError(inputEdadCobro);
         mensajeEdad1.innerHTML = '';
         let errorEdad1 = document.createElement("p");
         errorEdad1.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente superior a su edad actual.";
         mensajeEdad1.appendChild(errorEdad1);
-        agregarError(inputEdadCobro);
+        return false
     } else {
         quitarError(inputEdadCobro);
         mensajeEdad1.innerHTML = '';
@@ -151,11 +173,11 @@ function validarFormulario() {
     }
 
     if (inputEdadCobro.value >= 85) {
+        agregarError(inputEdadCobro);
         mensajeEdad2.innerHTML = '';
         let errorEdad2 = document.createElement("p");
         errorEdad2.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente menor a 85 años.";
         mensajeEdad2.appendChild(errorEdad2);
-        agregarError(inputEdadCobro);
     } else {
         quitarError(inputEdadCobro);
         mensajeEdad2.innerHTML = '';
@@ -170,6 +192,8 @@ function validarFormulario() {
     } else {
         mensajeCheck.innerHTML = '';
     }
+
+
 }
 
 // CALCULOS DE RENTA
@@ -181,7 +205,7 @@ function cicloCapitalizacion() {
     let contador = 1
     while (contador <= periodoCapitalizacion) {
         RentabilidadesAnuales.push(capitalFinal * 0.09);
-        capitalFinal = capitalFinal + (capitalFinal * 0.09);
+        capitalFinal = parseFloat(capitalFinal) + parseFloat(capitalFinal * 0.09);
         contador++;
     }
 }
@@ -189,7 +213,6 @@ function cicloCapitalizacion() {
 let rentaAnual;
 
 function calculoRentaAnual() {
-    capitalFinal = capitalInicial
     const rentaAnualSinComision = (capitalFinal / (85 - edadRetiro));
     rentaAnual = (rentaAnualSinComision - (rentaAnualSinComision * 0.02)).toFixed(2);
 }
@@ -230,20 +253,136 @@ function rentaResultante() {
 };
 function mostrarResultado() {
     document.getElementById("resultado").style.display = "none";
-    if (rentaCalculada >=0 && validarFormulario) {
-        mensajeResultado.innerHTML = "Estimado/a " + nombre + " " + apellidos + " la renta " + periodicidad.toLowerCase() + " resultante es de $" + rentaCalculada;
+    if (rentaCalculada >= 0 && validarFormulario) {
+        mensajeResultado.innerHTML = "Estimado/a " + nombre + " " + apellidos + "," + " la renta " + periodicidad.toLowerCase() + " resultante es de $" + rentaCalculada;
         document.getElementById("resultado").style.display = "flex";
+    }
+}
+
+//Verificar campos o detener ejecución.
+function comprobaciones() {
+
+    if (inputNombre.value == "") {
+        return false;
+    }
+    if (inputApellidos.value == "") {
+        return false;
+    }
+
+    if (!inputNacimiento.value) {
+        return false;
+    }
+
+    if (isNaN(inputImporte.value) || inputImporte.value <= 0) {
+        return false;
+    }
+
+    if (inputEdadCobro.value <= edadActual) {
+        return false;
+    }
+
+    if (inputEdadCobro.value >= 85) {
+        return false;
+    }
+
+    if (!inputCheck.checked) {
+        return false;
     }
 }
 
 formulario.addEventListener("submit", function (evt) {
     evt.preventDefault();
     validarFormulario();
-    cicloCapitalizacion();
-    rentaResultante();
-    guardarUsuario();
-    mostrarResultado();
+    if (comprobaciones() !== false) {
+        cicloCapitalizacion();
+        rentaResultante();
+        guardarUsuario();
+        mostrarResultado();
+    } else {
+        document.getElementById("resultado").style.display = "none";
+    }
 });
+
+botonEnviarMensaje.onclick = function () {
+    enviarMensaje()
+};
+
+
+function enviarMensaje() {
+    //Validar campos
+    if (inputNombreMensaje.value === '') {
+        agregarError(inputNombreMensaje);
+    } else {
+        quitarError(inputNombreMensaje);
+    }
+    if (inputEmailMensaje.value === '') {
+        agregarError(inputEmailMensaje);
+    } else {
+        quitarError(inputEmailMensaje);
+    }
+    if (inputMensaje.value === '') {
+        agregarError(inputMensaje);
+
+    } else {
+        quitarError(inputMensaje);
+    }
+
+    if (inputNombreMensaje.value === '') {
+        return false;
+    }
+    if (inputEmailMensaje.value === '') {
+        return false;
+    }
+    if (inputMensaje.value === '') {
+        return false;
+    }
+
+    //Enviar POST con datos
+    let datos = {
+        nombre: inputNombreMensaje.value,
+        email: inputEmailMensaje.value,
+        mensaje: inputMensaje.value
+    }
+    fetch('https://bevsa.free.beeceptor.com/mensajes', {
+        method: "POST",
+        body: JSON.stringify(datos)
+    })
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch((error) => {
+            console.log(error)
+        })
+    Swal.fire({
+        title: '¡Mensaje Enviado!',
+        text: 'Nos comunicaremos contigo próximamente.',
+        icon: 'success',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#0d6efd'
+    })
+}
+
+// CARGA DE DATOS VALOR DE ACCIÓN LIONKING.SA
+
+function cargarDatosAccion() {
+    fetch("https://lionking.free.beeceptor.com/companias/C01")
+        .then((response) => response.json())
+        .then((bevsaApi) => {
+            const IFestados = document.getElementById("spanEstado");
+            IFestados.innerText = bevsaApi.Estado
+            const IFemision = document.getElementById("spanEmision");
+            IFemision.innerText = bevsaApi.FechaEmision
+            const IFinstrumento = document.getElementById("spanInstrumento");
+            IFinstrumento.innerText = bevsaApi.TipoInstrumento
+            const IFvalor = document.getElementById("spanValor");
+            IFvalor.innerText = bevsaApi.Valor
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
+cargarDatosAccion()
+
 
 
 

@@ -135,6 +135,29 @@ label {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+#datosFinancieros {
+    padding: 10% 5% 10% 5%;
+    background-color: rgb(236, 240, 241);
+}
+
+#datosFinancieros div {
+    margin: auto;
+    padding: 5%;
+    width: 100%;
+    height: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+#datosFinancierosTitulo {
+    font-size: 1.2rem;
+    color: rgb(0, 174, 199);
+}
+
+#supervisionBCU {
+    font-size: 0.8rem;
+    color: #768692;
+}
+
 #contacto {
     display: flex;
     flex-flow: column;
@@ -207,6 +230,11 @@ label {
     font-family: 'Barlow', sans-serif;
     font-size: 1em;
     margin-top: 1rem;
+}
+
+#Enviar:hover {
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.1);
+    background-color: rgba(64, 159, 173, 0.322);
 }
 
 .pContacto {
@@ -297,6 +325,14 @@ footer p {
         max-width: 75%;
         padding-top: 2%;
         font-size: 1.1em;
+    }
+
+    #datosFinancierosTitulo {
+        font-size: 2rem;
+    }
+
+    #supervisionBCU {
+        font-size: 1rem;
     }
 
     #contacto .formularioContacto {
@@ -428,6 +464,10 @@ footer p {
     }
 
     .infoEmpresa {
+        max-width: 900px;
+    }
+
+    #datosFinancieros div {
         max-width: 900px;
     }
 
