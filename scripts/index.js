@@ -166,14 +166,12 @@ function validarFormulario() {
 
     //Validar edad de comienzo de cobro
     if (inputEdadCobro.value === "") {
-        console.log("Entra en validacion")
         agregarError(inputEdadCobro);
         return false
     } else {
         quitarError(inputEdadCobro);
         edadRetiro = inputEdadCobro.value
     }
-    console.log(typeof (inputEdadCobro.value))
     if (inputEdadCobro.value <= edadActual) {
         agregarError(inputEdadCobro);
         mensajeEdad1.innerHTML = "";
@@ -363,7 +361,6 @@ function enviarMensaje() {
         body: JSON.stringify(datos)
     })
         .then(response => response.json())
-        .then(json => console.log(json))
         .catch((error) => {
             console.log(error)
         })
