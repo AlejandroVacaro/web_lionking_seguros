@@ -35,14 +35,29 @@ let inputEmailMensaje = document.getElementById("email");
 let inputMensaje = document.getElementById("mensaje");
 
 
+//ARRAY DEPARTAMENTOS
+
+let departamentos = ["Montevideo", "Canelones", "Maldonado", "Rocha", "Treinta y Tres", "Cerro Largo", "Rivera", "Artigas", "Salto", "Paysandú", "Río Negro", "Soriano", "Colonia", "San José", "Flores", "Florida", "Durazno", "Lavalleja", "Tacuarembó"];
+
+departamentos.sort();
+
+for(var i = 0; i < departamentos.length; i++) {
+    var opt = departamentos[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    selectDepartamento.appendChild(el);
+}
+
+
 // NOTIFICACIÓN ASINCRÓNICA
 function mostrarInfo() {
     Swal.fire({
-        title: 'Aviso importante',
-        text: 'Estimados clientes, debido a modificaciones recientemente establecidas la ley de inclusión financiera, les recordamos que todos los pagos se hacen exclusicamente a cuentas bancaras, sin excepciones.',
-        icon: 'info',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#0d6efd'
+        title: "Aviso importante",
+        text: "Estimados clientes, debido a modificaciones recientemente establecidas la ley de inclusión financiera, les recordamos que todos los pagos se hacen exclusicamente a cuentas bancaras, sin excepciones.",
+        icon: "info",
+        confirmButtonText: "Entendido",
+        confirmButtonColor: "#0d6efd"
     })
 }
 
@@ -50,7 +65,7 @@ setTimeout(mostrarInfo, 5000);
 
 
 // CARGA DE DATOS GUARDADOS:
-let usuarioRecuperado = window.localStorage.getItem('objetoUsuario');
+let usuarioRecuperado = window.localStorage.getItem("objetoUsuario");
 const objetoUsuarioRecuperado = JSON.parse(usuarioRecuperado)
 
 
@@ -59,25 +74,25 @@ function preCargarDatos() {
         for (const propiedad in objetoUsuarioRecuperado) {
             if (objetoUsuarioRecuperado[propiedad] !== null)
                 switch (propiedad) {
-                    case 'nombre':
+                    case "nombre":
                         inputNombre.value = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'apellidos':
+                    case "apellidos":
                         inputApellidos.value = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'documento':
+                    case "documento":
                         inputDocumento.value = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'fechaNacimiento':
+                    case "fechaNacimiento":
                         inputNacimiento.value = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'domicilio':
+                    case "domicilio":
                         inputDomicilio.value = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'departamento':
+                    case "departamento":
                         inputDepartamento.options[inputDepartamento.selectedIndex].text = objetoUsuarioRecuperado[propiedad];
                         break;
-                    case 'correo':
+                    case "correo":
                         inputEmail.value = objetoUsuarioRecuperado[propiedad];
                         break;
                     default:
@@ -151,7 +166,7 @@ function validarFormulario() {
 
     //Validar edad de comienzo de cobro
     if (inputEdadCobro.value === "") {
-        console.log('Entra en validacion')
+        console.log("Entra en validacion")
         agregarError(inputEdadCobro);
         return false
     } else {
@@ -161,36 +176,36 @@ function validarFormulario() {
     console.log(typeof (inputEdadCobro.value))
     if (inputEdadCobro.value <= edadActual) {
         agregarError(inputEdadCobro);
-        mensajeEdad1.innerHTML = '';
+        mensajeEdad1.innerHTML = "";
         let errorEdad1 = document.createElement("p");
         errorEdad1.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente superior a su edad actual.";
         mensajeEdad1.appendChild(errorEdad1);
         return false
     } else {
         quitarError(inputEdadCobro);
-        mensajeEdad1.innerHTML = '';
+        mensajeEdad1.innerHTML = "";
         edadRetiro = inputEdadCobro.value
     }
 
     if (inputEdadCobro.value >= 85) {
         agregarError(inputEdadCobro);
-        mensajeEdad2.innerHTML = '';
+        mensajeEdad2.innerHTML = "";
         let errorEdad2 = document.createElement("p");
         errorEdad2.innerHTML = "La edad para comenzar a cobrar su renta debe ser estrictamente menor a 85 años.";
         mensajeEdad2.appendChild(errorEdad2);
     } else {
         quitarError(inputEdadCobro);
-        mensajeEdad2.innerHTML = '';
+        mensajeEdad2.innerHTML = "";
         edadRetiro = inputEdadCobro.value
     }
 
     if (!inputCheck.checked) {
-        mensajeCheck.innerHTML = '';
+        mensajeCheck.innerHTML = "";
         let errorCheckBox = document.createElement("p");
         errorCheckBox.innerHTML = "Para continuar debe aceptar los términos y condiciones.";
         mensajeCheck.appendChild(errorCheckBox);
     } else {
-        mensajeCheck.innerHTML = '';
+        mensajeCheck.innerHTML = "";
     }
 
 
@@ -236,7 +251,7 @@ function Usuario(nombre, apellidos, documento, fechaNacimiento, domicilio, depar
 
 function guardarUsuario() {
     const usuario1 = new Usuario(nombre, apellidos, documento, fechaNacimiento, domicilio, departamento, correo);
-    localStorage.setItem('objetoUsuario', JSON.stringify(usuario1));
+    localStorage.setItem("objetoUsuario", JSON.stringify(usuario1));
 }
 
 let rentaCalculada;
@@ -310,30 +325,30 @@ botonEnviarMensaje.onclick = function () {
 
 function enviarMensaje() {
     //Validar campos
-    if (inputNombreMensaje.value === '') {
+    if (inputNombreMensaje.value === "") {
         agregarError(inputNombreMensaje);
     } else {
         quitarError(inputNombreMensaje);
     }
-    if (inputEmailMensaje.value === '') {
+    if (inputEmailMensaje.value === "") {
         agregarError(inputEmailMensaje);
     } else {
         quitarError(inputEmailMensaje);
     }
-    if (inputMensaje.value === '') {
+    if (inputMensaje.value === "") {
         agregarError(inputMensaje);
 
     } else {
         quitarError(inputMensaje);
     }
 
-    if (inputNombreMensaje.value === '') {
+    if (inputNombreMensaje.value === "") {
         return false;
     }
-    if (inputEmailMensaje.value === '') {
+    if (inputEmailMensaje.value === "") {
         return false;
     }
-    if (inputMensaje.value === '') {
+    if (inputMensaje.value === "") {
         return false;
     }
 
@@ -343,7 +358,7 @@ function enviarMensaje() {
         email: inputEmailMensaje.value,
         mensaje: inputMensaje.value
     }
-    fetch('https://bevsa.free.beeceptor.com/mensajes', {
+    fetch("https://bevsa.free.beeceptor.com/mensajes", {
         method: "POST",
         body: JSON.stringify(datos)
     })
@@ -353,11 +368,11 @@ function enviarMensaje() {
             console.log(error)
         })
     Swal.fire({
-        title: '¡Mensaje Enviado!',
-        text: 'Nos comunicaremos contigo próximamente.',
-        icon: 'success',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#0d6efd'
+        title: "¡Mensaje Enviado!",
+        text: "Nos comunicaremos contigo próximamente.",
+        icon: "success",
+        confirmButtonText: "Entendido",
+        confirmButtonColor: "#0d6efd"
     })
 }
 
